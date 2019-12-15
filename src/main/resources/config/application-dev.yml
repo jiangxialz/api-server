@@ -1,0 +1,66 @@
+# server 配置
+server:
+  port: 8888
+  servlet:
+    context-path: /v1
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/api_server?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  jackson:
+    # 忽略null
+    default-property-inclusion: non_null
+    # 日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  mail:
+    host: smtp.163.com
+    username: synear_vip@163.com
+    password: zgl0513
+    default-encoding: UTF-8
+# mybatis-plus 配置
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    banner: false
+    worker-id: 0
+    datacenter-id: 0
+# 日志配置
+logging:
+  level:
+    root: debug
+    org.springframework: info
+    org.hibernate: warn
+    com.baomidou.mybatisplus: info
+    springfox.documentation: warn
+    org.mybatis.spring: warn
+    org.apache: warn
+    com.zaxxer.hikari: warn
+    javax.activation: warn
+    com.sun.mail: warn
+    javax.mail: warn
+# 自定义配置
+app:
+  jwt:
+    secret: 123456
+    expire-idle: 24
+  # 系统用户默认密码
+  user-default-password: 123456
+  # 验证码
+  safe-code:
+    # 验证码最长有效时间
+    max-duration: 10
+    # 同账号发送验证码 最小频率，单位分钟
+    min-rate: 1
+    email-subject: API-SERVER 重置密码验证码
+    # 同手机号每天发送短信最大数量
+    phone-max-number: 3

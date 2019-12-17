@@ -3,7 +3,7 @@ package com.qinyou.apiserver.sys.service;
 import com.qinyou.apiserver.sys.dto.ChangePwdDTO;
 import com.qinyou.apiserver.sys.dto.ResetPwdDTO;
 import com.qinyou.apiserver.sys.dto.UserInfoDTO;
-import com.qinyou.apiserver.sys.dto.UserInfoDTO2;
+import com.qinyou.apiserver.sys.dto.ChangeInfoDTO;
 
 
 public interface IAccountService {
@@ -31,9 +31,9 @@ public interface IAccountService {
     /**
      * 修改用户个人信息
      * @param username
-     * @param userInfoDTO2
+     * @param changeInfoDTO
      */
-    void updateUserInfo(String username, UserInfoDTO2 userInfoDTO2);
+    void updateUserInfo(String username, ChangeInfoDTO changeInfoDTO);
 
 
     /**

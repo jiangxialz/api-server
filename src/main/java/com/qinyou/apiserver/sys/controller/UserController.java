@@ -18,7 +18,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,7 @@ import java.util.List;
  * @author chuang
  * @since 2019-10-19
  */
-@SuppressWarnings({"Duplicates","SpringJavaInjectionPointsAutowiringInspection"})
+@SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})
 @Api(tags = "用户管理")
 @RestController
 @RequestMapping("/sys/user")
@@ -42,6 +41,8 @@ public class UserController {
     IUserService userService;
     @Autowired
     IUserRoleService userRoleService;
+    @Value("${app.user-default-password}")
+    String userDefaultPwd;
 
     @ApiOperation("查询用户列表")
     @PreAuthorize("hasAuthority('sysUser')")
@@ -53,7 +54,6 @@ public class UserController {
         PageDTO<User> pageDataDTO = WebUtils.buildResultPage(userService.page(page, queryWrapper));
         return WebUtils.ok(pageDataDTO);
     }
-
 
     @ApiOperation("添加用户")
     @SysLog()
@@ -73,7 +73,6 @@ public class UserController {
         return WebUtils.ok(ResponseEnum.UPDATE_SUCCESS);
     }
 
-
     @ApiOperation(value = "删除用户")
     @SysLog()
     @PreAuthorize("hasAuthority('sysUser:remove')")
@@ -92,17 +91,13 @@ public class UserController {
         return WebUtils.ok(ResponseEnum.TOGGLE_SUCCESS);
     }
 
-
-    @Value("${app.user-default-password}")
-    String userDefaultPwd;
-
     @ApiOperation(value = "重置用户密码")
     @SysLog()
     @PreAuthorize("hasAuthority('sysUser:resetPwd')")
     @GetMapping("/reset-pwd/{id}")
-    public ResponseResult resetPassword(@PathVariable String id){
+    public ResponseResult resetPassword(@PathVariable String id) {
         userService.resetPwd(id);
-        return WebUtils.ok(ResponseEnum.RESET_PWD_SUCCESS,ResponseEnum.RESET_PWD_SUCCESS.msg+" 新密码:"+userDefaultPwd);
+        return WebUtils.ok(ResponseEnum.RESET_PWD_SUCCESS, ResponseEnum.RESET_PWD_SUCCESS.msg + " 新密码:" + userDefaultPwd);
     }
 
 
@@ -110,30 +105,30 @@ public class UserController {
     @ApiOperation(value = "获得用户详情")
     @PreAuthorize("hasAuthority('sysUser:configRoles')")
     @GetMapping("/detail/{id}")
-    public ResponseResult<User> detail(@PathVariable String id){
+    public ResponseResult<User> detail(@PathVariable String id) {
         return WebUtils.ok(userService.getById(id));
     }
 
     @ApiOperation(value = "用户没有的角色列表")
     @PreAuthorize("hasAuthority('sysUser:configRoles')")
     @PostMapping("/list-no-roles/{userId}")
-    public ResponseResult<PageDTO<Role>> listNoRoles(@PathVariable String userId, @RequestBody PageFindDTO pageFindDto){
-        return WebUtils.ok(userRoleService.listRoles(false,userId,pageFindDto));
+    public ResponseResult<PageDTO<Role>> listNoRoles(@PathVariable String userId, @RequestBody PageFindDTO pageFindDto) {
+        return WebUtils.ok(userRoleService.listRoles(false, userId, pageFindDto));
     }
 
     @ApiOperation(value = "用户拥有的角色列表")
     @PreAuthorize("hasAuthority('sysUser:configRoles')")
     @PostMapping("/list-have-roles/{userId}")
-    public ResponseResult<PageDTO<Role>> listHaveRoles(@PathVariable String userId, @RequestBody PageFindDTO pageFindDto){
-        return WebUtils.ok(userRoleService.listRoles(true,userId,pageFindDto));
+    public ResponseResult<PageDTO<Role>> listHaveRoles(@PathVariable String userId, @RequestBody PageFindDTO pageFindDto) {
+        return WebUtils.ok(userRoleService.listRoles(true, userId, pageFindDto));
     }
 
     @ApiOperation(value = "删除用户相关角色")
     @SysLog()
     @PreAuthorize("hasAuthority('sysUser:configRoles')")
     @PostMapping("/del-user-roles/{userId}")
-    public ResponseResult deleteUserRoles(@PathVariable String userId, @RequestBody List<String> roleIds){
-        userRoleService.delUserRoles(userId,roleIds);
+    public ResponseResult deleteUserRoles(@PathVariable String userId, @RequestBody List<String> roleIds) {
+        userRoleService.delUserRoles(userId, roleIds);
         return WebUtils.ok(ResponseEnum.DELETE_SUCCESS);
     }
 
@@ -142,8 +137,8 @@ public class UserController {
     @SysLog()
     @PreAuthorize("hasAuthority('sysUser:configRoles')")
     @PostMapping("/add-user-roles/{userId}")
-    public ResponseResult addUserRoles(@PathVariable String userId, @RequestBody List<String> roleIds){
-        userRoleService.addUserRoles(userId,roleIds);
+    public ResponseResult addUserRoles(@PathVariable String userId, @RequestBody List<String> roleIds) {
+        userRoleService.addUserRoles(userId, roleIds);
         return WebUtils.ok(ResponseEnum.ADD_SUCCESS);
     }
 }

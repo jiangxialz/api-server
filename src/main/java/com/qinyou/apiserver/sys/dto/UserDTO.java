@@ -6,7 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
-@ApiModel(description = "UserDTO 用户DTO, 接收参数")
+@ApiModel(description = "User 实体 DTO, 请求参数")
 @Data
 public class UserDTO {
 
@@ -17,7 +17,6 @@ public class UserDTO {
     @ApiModelProperty(value = "状态，0正常，1禁用")
     @NotBlank(message = "状态不能为空")
     private String state;
-
 
     @ApiModelProperty(value = "昵称/姓名")
     private String nickname;
@@ -33,7 +32,4 @@ public class UserDTO {
 
     @ApiModelProperty(value = "头像")
     private String avatar;
-
-    @ApiModelProperty(value = "角色集合，多个逗号分隔")
-    String roles;
 }

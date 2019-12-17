@@ -8,21 +8,27 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-@ApiModel(description = "UserInfoDTO 用户信息, 响应数据")
+@ApiModel(description = "登录用户个人信息 响应数据")
 public class UserInfoDTO {
 
     @ApiModelProperty(value = "用户名")
     private String username;
+
     @JsonIgnore
     private String password;
+
     @ApiModelProperty(value = "姓名")
     private String nickname;
+
     @ApiModelProperty(value = "电话")
     private String phone;
+
     @ApiModelProperty(value = "邮箱")
     private String email;
+
     @ApiModelProperty(value = "简介")
     private String intro;
+
     @ApiModelProperty(value = "头像")
     private String avatar;
 

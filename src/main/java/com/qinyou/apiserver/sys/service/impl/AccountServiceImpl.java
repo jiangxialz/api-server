@@ -14,7 +14,7 @@ import com.qinyou.apiserver.core.utils.WebUtils;
 import com.qinyou.apiserver.sys.dto.ChangePwdDTO;
 import com.qinyou.apiserver.sys.dto.ResetPwdDTO;
 import com.qinyou.apiserver.sys.dto.UserInfoDTO;
-import com.qinyou.apiserver.sys.dto.UserInfoDTO2;
+import com.qinyou.apiserver.sys.dto.ChangeInfoDTO;
 import com.qinyou.apiserver.sys.entity.User;
 import com.qinyou.apiserver.sys.entity.VerificationCode;
 import com.qinyou.apiserver.sys.mapper.UserMapper;
@@ -107,12 +107,12 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void updateUserInfo(String username, UserInfoDTO2 userInfoDTO2) {
+    public void updateUserInfo(String username, ChangeInfoDTO changeInfoDTO) {
         User user = userService.getById(username);
         if(user==null){
             throw RequestException.fail(ResponseEnum.UPDATE_USERINFO_FAIL);
         }
-        BeanUtils.copyProperties(userInfoDTO2,user);
+        BeanUtils.copyProperties(changeInfoDTO,user);
         user.setUpdateTime(LocalDateTime.now()).setUpdater(WebUtils.getSecurityUsername());
         userService.updateById(user);
     }

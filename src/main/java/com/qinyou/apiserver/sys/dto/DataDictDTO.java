@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-@ApiModel(description = "DataDictDTO 字典DTO, 接收参数")
+@ApiModel(description = "DataDict 实体DTO, 请求参数")
 public class DataDictDTO {
     @ApiModelProperty(value = "类型，group组，item组值",allowableValues = "group,item",required = true)
     @NotBlank(message = "类型不能为空")

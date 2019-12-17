@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-@ApiModel(description = "LoginDTO 登录DTO, 接收参数")
+@ApiModel(description = "登录 请求参数")
 public class LoginDTO {
 
     @ApiModelProperty(value = "用户名",example = "admin")

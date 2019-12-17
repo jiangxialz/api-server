@@ -8,8 +8,8 @@ import javax.validation.constraints.NotBlank;
 
 
 @Data
-@ApiModel(description = "用户修改个人信息DTO")
-public class UserInfoDTO2 {
+@ApiModel(description = "修改用户信息 请求参数")
+public class ChangeInfoDTO {
     @ApiModelProperty(value = "昵称/姓名")
     private String nickname;
 

@@ -55,7 +55,6 @@ public class DataDict extends BaseEntity implements Serializable {
     @TableField("group_code")
     private String groupCode;
 
-
     // 非数据表字段
     @ApiModelProperty( hidden = true) // 不加 swagger 无法使用
     @TableField(exist = false)

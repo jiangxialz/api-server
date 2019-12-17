@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * Entity 基类
+ * @author chuang
  */
 @Getter
 @Setter

@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-@ApiModel(description = "RoleDTO 角色DTO, 接收参数")
+@ApiModel(description = "Role 实体 DTO, 请求参数")
 public class RoleDTO {
     @ApiModelProperty(value = "编码")
     @NotBlank(message = "角色编码不能为空")

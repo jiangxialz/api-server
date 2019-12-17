@@ -59,7 +59,6 @@ public class JwtUtil {
             flag = true;
         } catch (Exception e) {
             // token 被篡改
-            flag = false;
         }
         if(flag){
             return generate(getUsername(token));

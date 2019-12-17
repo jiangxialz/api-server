@@ -28,7 +28,6 @@ public class JwtUser implements UserDetails {
         return username;
     }
 
-    @JsonIgnore
     @Override
     public String getPassword() {
         return password;
@@ -41,21 +40,18 @@ public class JwtUser implements UserDetails {
     }
 
     // 账号是否 没有过期
-    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
     // 账号是否没有锁定
-    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return "0".equals(state);
     }
 
-    // 账号密码是否 没有过期
-    @JsonIgnore
+    // 账号密码是否没有过期
     @Override
     public boolean isCredentialsNonExpired() {
         return true;

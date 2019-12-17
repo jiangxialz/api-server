@@ -25,5 +25,6 @@ public class ResponseResult<T> implements Serializable {
 
     @ApiModelProperty(value = "时间戳")
     private final long timestamps = System.currentTimeMillis();
+
     private static final long serialVersionUID = 8992436576262574064L;
 }

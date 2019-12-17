@@ -5,14 +5,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * 排序参数
  */
 @Getter
 @Setter
-@ApiModel("排序参数 dto")
-public class OrderDTO {
+@ApiModel("排序条件")
+public class OrderDTO implements Serializable {
 
+    private static final long serialVersionUID = -4349865241604821630L;
     @ApiModelProperty(value = "排序字段")
     public String column;
 

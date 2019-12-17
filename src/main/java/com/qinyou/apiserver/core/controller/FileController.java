@@ -5,6 +5,7 @@ import com.qinyou.apiserver.core.result.RequestException;
 import com.qinyou.apiserver.core.result.ResponseEnum;
 import com.qinyou.apiserver.core.result.ResponseResult;
 import com.qinyou.apiserver.core.utils.WebUtils;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,14 +20,10 @@ import java.util.Date;
 @Slf4j
 public class FileController {
 
-    /**
-     * 上传文件
-     * @return
-     */
+    @ApiOperation("文件上传, 表单key为 file")
     @PostMapping("/upload")
     @ResponseBody
     public ResponseResult<String> upload(HttpServletRequest req, @RequestParam("file") MultipartFile file) {
-        boolean flag = false;
         String path = null;
         try {
             String fileName = System.currentTimeMillis() +"_"+ file.getOriginalFilename();
@@ -41,10 +38,10 @@ public class FileController {
             }
             file.transferTo(destFile);
             log.debug("dest file path: {}",destFile.getAbsolutePath());
-            flag = true;
         } catch (IOException e) {
             log.error(e.getMessage(),e);
+            throw RequestException.fail(ResponseEnum.UPLOAD_FAIL);
         }
-        return flag ? WebUtils.ok(path):WebUtils.fail(ResponseEnum.UPLOAD_FAIL);
+        return WebUtils.ok(path) ;
     }
 }

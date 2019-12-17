@@ -2,7 +2,6 @@ package com.qinyou.apiserver.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qinyou.apiserver.core.aop.SysLog;
 import com.qinyou.apiserver.core.base.PageDTO;
 import com.qinyou.apiserver.core.base.PageFindDTO;
@@ -40,17 +39,17 @@ public class ResourceController {
     @ApiOperation("资源列表")
     @PreAuthorize("hasAuthority('sysResource')")
     @PostMapping("/list")
-    public ResponseResult<PageDTO<Resource>> list(@RequestBody PageFindDTO pageFindDto){
+    public ResponseResult<PageDTO<Resource>> list(@RequestBody PageFindDTO pageFindDto) {
         QueryWrapper<Resource> queryWrapper = WebUtils.buildSearchQueryWrapper(pageFindDto);
-        queryWrapper.eq("type","menu").orderByAsc("sort");
-        IPage<Resource> pageQuery=WebUtils.buildSearchPage(pageFindDto);
+        queryWrapper.eq("type", "menu").orderByAsc("sort");
+        IPage<Resource> pageQuery = WebUtils.buildSearchPage(pageFindDto);
 
-        IPage<Resource> pageData = resourceService.page(pageQuery,queryWrapper);
-        for(Resource resource : pageData.getRecords()){
+        IPage<Resource> pageData = resourceService.page(pageQuery, queryWrapper);
+        for (Resource resource : pageData.getRecords()) {
             List<Resource> children = resourceService.list(new QueryWrapper<Resource>()
-                    .likeRight("id",resource.getId()+":")
+                    .likeRight("id", resource.getId() + ":")
                     .orderByAsc("sort"));
-            if (children.size()>0) resource.setChildren(children);
+            if (children.size() > 0) resource.setChildren(children);
         }
 
         return WebUtils.ok(WebUtils.buildResultPage(pageData));
@@ -60,7 +59,7 @@ public class ResourceController {
     @SysLog()
     @PreAuthorize("hasAuthority('sysResource:add')")
     @PostMapping("/add")
-    public ResponseResult add(@RequestBody @Validated  ResourceDTO resourceDTO){
+    public ResponseResult add(@RequestBody @Validated ResourceDTO resourceDTO) {
         resourceService.add(resourceDTO);
         return WebUtils.ok(ResponseEnum.ADD_SUCCESS);
     }
@@ -69,8 +68,8 @@ public class ResourceController {
     @SysLog()
     @PreAuthorize("hasAuthority('sysResource:update')")
     @PostMapping("/update/{id}")
-    public ResponseResult update(@PathVariable("id") String id, @RequestBody @Validated  ResourceDTO resourceDTO){
-        resourceService.update(id,resourceDTO);
+    public ResponseResult update(@PathVariable("id") String id, @RequestBody @Validated ResourceDTO resourceDTO) {
+        resourceService.update(id, resourceDTO);
         return WebUtils.ok(ResponseEnum.UPDATE_SUCCESS);
     }
 
@@ -79,7 +78,7 @@ public class ResourceController {
     @SysLog()
     @PreAuthorize("hasAuthority('sysResource:remove')")
     @GetMapping("/remove/{id}")
-    public ResponseResult remove(@PathVariable("id") String id){
+    public ResponseResult remove(@PathVariable("id") String id) {
         resourceService.remove(id);
         return WebUtils.ok(ResponseEnum.DELETE_SUCCESS);
     }
@@ -89,7 +88,7 @@ public class ResourceController {
     @SysLog()
     @PreAuthorize("hasAuthority('sysResource:toggle')")
     @GetMapping("/toggle-state/{id}")
-    public ResponseResult toggleState(@PathVariable String id){
+    public ResponseResult toggleState(@PathVariable String id) {
         resourceService.toggleState(id);
         return WebUtils.ok(ResponseEnum.TOGGLE_SUCCESS);
     }

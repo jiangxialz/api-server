@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 /**
  * <p>
  * 存放验证码
- * 用途：0邮箱重置密码
+ * 用途：0 重置密码
  * 数据操作需保证： 同账号(account)、未使用(state=0)、同用途(purpose) 只有1条数据
  * </p>
  *

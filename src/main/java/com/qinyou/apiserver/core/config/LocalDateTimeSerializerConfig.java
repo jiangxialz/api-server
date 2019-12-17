@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 /**
  *  jackson date-format 配置 不支持全局 LocalDatetime 格式，需单独在bean 上使用 @JsonFormat 注解
  *  此配置让 全局 jackson date-format 在 LocalDateTime 上生效. @JsonFormat 注解仍可单独配置
- * @author chuang
+ *  @author chuang
  */
 @Configuration
 public class LocalDateTimeSerializerConfig {

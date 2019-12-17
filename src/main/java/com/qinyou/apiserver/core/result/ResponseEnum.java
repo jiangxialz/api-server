@@ -29,7 +29,6 @@ public enum ResponseEnum {
     ACCOUNT_LOCKED(2004,"账号被锁定"),
     NOT_SING_IN(2005,"用户未登录或认证失败"),
     ACCESS_DENIED(2006,"无权限禁止访问"),
-
     BAD_PARAM(2007,"参数格式不正确"),
     ADD_FAIL(2008,"添加失败"),
     UPDATE_FAIL(2009,"修改失败"),

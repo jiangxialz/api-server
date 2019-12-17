@@ -23,7 +23,6 @@ import java.util.List;
  * @author chuang
  * @since 2019-11-12
  */
-@ApiIgnore
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)

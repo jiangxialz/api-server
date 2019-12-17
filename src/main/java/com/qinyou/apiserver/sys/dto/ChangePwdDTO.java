@@ -12,14 +12,14 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 @Setter
-@ApiModel(description = "修改密码 ChangePwdDTO, 接收参数")
+@ApiModel(description = "原始密码修改密码 请求参数")
 public class ChangePwdDTO {
 
-    @ApiModelProperty(value = "新密码",required = true)
-    @NotBlank(message = "原始密码")
+    @ApiModelProperty(value = "原始密码",required = true)
+    @NotBlank(message = "原始密码不可为空")
     private String oldPwd;
 
     @ApiModelProperty(value = "新密码",required = true)
-    @NotBlank(message = "新密码")
+    @NotBlank(message = "新密码不可为空")
     private String newPwd;
 }

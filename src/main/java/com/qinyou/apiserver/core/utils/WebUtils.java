@@ -240,7 +240,7 @@ public class WebUtils {
                 .build();
     }
 
-    public static ResponseResult fail(ResponseEnum responseEnum){
+    public static <T> ResponseResult fail(ResponseEnum responseEnum){
         return ResponseResult.builder()
                 .status(false)
                 .code(responseEnum.code)

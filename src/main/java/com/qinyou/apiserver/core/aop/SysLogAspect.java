@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 
 /**
  * 日志切面, SysLog 注解 只在 controller 上使用
+ * @author chuang
  */
 @Aspect
 @Component
@@ -47,7 +48,9 @@ public class SysLogAspect {
         log.setUri(request.getRequestURI());
 
         SysLog sysLog = getMethodSysLogsAnnotationValue(joinPoint);
+        // @SysLog value 为空，从@ApiOperation 的 value 取值
         log.setActionName("".equals(sysLog.value()) ? getApiOperationValue(joinPoint) : sysLog.value());
+        
         if(!"".equals(sysLog.type())){
             log.setType(sysLog.type());
         }
@@ -79,7 +82,6 @@ public class SysLogAspect {
 
     /**
      * 获得 ApiOperation 注解内容
-     *
      * @param joinPoint
      * @return
      */

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ApiModel(description = "ResourceDTO 系统资源DTO, 接收参数")
+@ApiModel(description = "Resource 实体 DTO, 请求参数")
 public class ResourceDTO {
 
     @ApiModelProperty(value = "资源编码",required = true)

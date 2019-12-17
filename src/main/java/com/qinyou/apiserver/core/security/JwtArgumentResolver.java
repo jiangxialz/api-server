@@ -34,22 +34,22 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
         String tokenHead = "Bearer ";
         Object result = null;
         JwtClaim token = null;
-        if(authHeader!=null && authHeader.startsWith(tokenHead)){
+        if (authHeader != null && authHeader.startsWith(tokenHead)) {
             authHeader = authHeader.substring(tokenHead.length());
             Annotation[] methodAnnotations = parameter.getParameterAnnotations();
             for (Annotation methodAnnotation : methodAnnotations) {
-                if(methodAnnotation instanceof JwtClaim){
+                if (methodAnnotation instanceof JwtClaim) {
                     token = (JwtClaim) methodAnnotation;
                     break;
                 }
             }
-            if(token!=null){
-                result = jwtUtil.get(authHeader,token.value());
+            if (token != null) {
+                result = jwtUtil.get(authHeader, token.value());
             }
         }
 
         // 无法解析
-        if(result == null){
+        if (result == null) {
             throw new RequestException(ResponseEnum.NOT_SING_IN);
         }
 

@@ -22,6 +22,7 @@ import java.util.List;
 
 /**
  * swagger 配置，dev 环境生效
+ *
  * @author chuang
  */
 @Profile("dev")
@@ -30,37 +31,22 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private final String DEFAULT_CONTACTNAME = "qinyou";
-    private final String DEFAULT_CONTACTURL = "https://github.com/qinyou";
-    private final String DEFAULT_CONTACTEMAIL = "916432779@qq.com";
-
-    /**
-     * 账号相关，登录、获取权限等
-     * TODO 创建统一的请求头参数，如果放行某单个路由？ 这是个问题
-     * @return
-     */
     @Bean
-    public Docket createSysRestApi() {
+    public Docket createAccountAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("1. 账号")     // 此处为 中文swagger-ui 会有小bug, 但不影响使用
-                .apiInfo(createApiInfo("账号认证-权限-重置","账号认证、用户权限、重置密码等"))
+                .groupName("1. 账号认证")
+                .apiInfo(createApiInfo("账号认证", "账号认证、密码重置，用户信息等"))
                 .ignoredParameterTypes(JwtClaim.class)
                 .select()
                 .paths(PathSelectors.ant("/account/**"))
                 .build();
     }
 
-
-    /**
-     * 后台管理 api 文档
-     * 用户权限、数据字典、用户操作日志
-     * @return
-     */
     @Bean
-    public Docket createSysRestApi2() {
+    public Docket createSysAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("2. 后台管理")     // 此处为 中文 swagger-ui 会有小bug, 但不影响使用
-                .apiInfo(createApiInfo("后台配置","资源管理、用户角色权限、操作日志、数据字典等"))
+                .groupName("2. 后台管理")
+                .apiInfo(createApiInfo("后台配置", "权限管理、数据字典等"))
                 .ignoredParameterTypes(JwtClaim.class)
                 .globalOperationParameters(commonTokenParams())
                 .select()
@@ -71,8 +57,8 @@ public class SwaggerConfig {
     @Bean
     public Docket createSysRestApi3() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("3. 通用接口")     // 此处为 中文swagger-ui 会有小bug, 但不影响使用
-                .apiInfo(createApiInfo("通用接口","文件上传等"))
+                .groupName("3. 通用接口")
+                .apiInfo(createApiInfo("通用接口", "文件上传等"))
                 .ignoredParameterTypes(JwtClaim.class)
                 .select()
                 .paths(PathSelectors.ant("/file/**"))
@@ -84,15 +70,19 @@ public class SwaggerConfig {
 
     /**
      * 创建统一的 ApiInfo 信息
+     *
      * @param title
      * @param description
      * @return
      */
-    private ApiInfo createApiInfo(String title,String description){
+    private ApiInfo createApiInfo(String title, String description) {
+        String DEFAULT_CONTACTNAME = "qinyou";
+        String DEFAULT_CONTACTURL = "https://github.com/qinyou";
+        String DEFAULT_CONTACTEMAIL = "916432779@qq.com";
         ApiInfo apiInfo = new ApiInfoBuilder()
                 .title(title)
                 .description(description)
-                //.version("v1")  通过 context path 判断 api 版本号，故此处不再写 版本号
+                //.version("v1")  通过 context path 判断 api 版本号
                 .contact(new Contact(DEFAULT_CONTACTNAME, DEFAULT_CONTACTURL, DEFAULT_CONTACTEMAIL))
                 .build();
         return apiInfo;
@@ -101,9 +91,10 @@ public class SwaggerConfig {
 
     /**
      * 创建 token 公共参数
+     *
      * @return
      */
-    private List<Parameter> commonTokenParams(){
+    private List<Parameter> commonTokenParams() {
         ParameterBuilder parameterBuilder = new ParameterBuilder();
         parameterBuilder.name("Authorization").description("身份认证Token")
                 .modelRef(new ModelRef("string"))
@@ -116,16 +107,17 @@ public class SwaggerConfig {
 
     /**
      * 生成token 例子 （自服务启动 100天后过期）
+     *
      * @return
      */
-    private String genTokenExample(){
+    private String genTokenExample() {
         JwtUtil jwtUtil = new JwtUtil();
         jwtUtil.setSecret("123456");
         jwtUtil.setExpireIdle(2400);
         String token = jwtUtil.generate("admin");
-        while (token.contains("_") || !jwtUtil.verify(token)){
+        while (token.contains("_") || !jwtUtil.verify(token)) {
             token = jwtUtil.generate("admin");
         }
-        return "Bearer "+token;
+        return "Bearer " + token;
     }
 }

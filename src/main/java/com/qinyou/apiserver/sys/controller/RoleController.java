@@ -30,7 +30,7 @@ import java.util.List;
  * @author chuang
  * @since 2019-10-19
  */
-@SuppressWarnings({"Duplicates","SpringJavaInjectionPointsAutowiringInspection"})
+@SuppressWarnings({"Duplicates", "SpringJavaInjectionPointsAutowiringInspection"})
 @Api(tags = "角色管理")
 @RestController
 @RequestMapping("/sys/role")
@@ -92,7 +92,7 @@ public class RoleController {
     @ApiOperation(value = "获得角色详情")
     @PreAuthorize("hasAuthority('sysRole:configResources')")
     @GetMapping("/detail/{id}")
-    public ResponseResult<Role> detail(@PathVariable String id){
+    public ResponseResult<Role> detail(@PathVariable String id) {
         return WebUtils.ok(roleService.getById(id));
     }
 
@@ -100,23 +100,23 @@ public class RoleController {
     @ApiOperation(value = "角色没有的资源列表")
     @PreAuthorize("hasAuthority('sysRole:configResources')")
     @PostMapping("/list-no-resources/{roleId}")
-    public ResponseResult<PageDTO<Resource>> listNoResources(@PathVariable String roleId, @RequestBody PageFindDTO pageFindDto){
-        return WebUtils.ok(roleResourceService.listResources(false,roleId,pageFindDto));
+    public ResponseResult<PageDTO<Resource>> listNoResources(@PathVariable String roleId, @RequestBody PageFindDTO pageFindDto) {
+        return WebUtils.ok(roleResourceService.listResources(false, roleId, pageFindDto));
     }
 
     @ApiOperation(value = "角色拥有的资源列表")
     @PreAuthorize("hasAuthority('sysRole:configResources')")
     @PostMapping("/list-have-resources/{roleId}")
-    public ResponseResult<PageDTO<Resource>> listHaveResources(@PathVariable String roleId, @RequestBody PageFindDTO pageFindDto){
-        return WebUtils.ok(roleResourceService.listResources(true,roleId,pageFindDto));
+    public ResponseResult<PageDTO<Resource>> listHaveResources(@PathVariable String roleId, @RequestBody PageFindDTO pageFindDto) {
+        return WebUtils.ok(roleResourceService.listResources(true, roleId, pageFindDto));
     }
 
     @ApiOperation(value = "删除角色相关资源")
     @SysLog()
     @PreAuthorize("hasAuthority('sysRole:configResources')")
     @PostMapping("/del-role-resources/{roleId}")
-    public ResponseResult deleteRoleResources(@PathVariable String roleId, @RequestBody List<String> resourceIds){
-        roleResourceService.delRoleResources(roleId,resourceIds);
+    public ResponseResult deleteRoleResources(@PathVariable String roleId, @RequestBody List<String> resourceIds) {
+        roleResourceService.delRoleResources(roleId, resourceIds);
         return WebUtils.ok(ResponseEnum.DELETE_SUCCESS);
     }
 
@@ -125,8 +125,8 @@ public class RoleController {
     @SysLog()
     @PreAuthorize("hasAuthority('sysRole:configResources')")
     @PostMapping("/add-role-resources/{roleId}")
-    public ResponseResult addRoleResources(@PathVariable String roleId, @RequestBody List<String> resourceIds){
-        roleResourceService.addRoleResources(roleId,resourceIds);
+    public ResponseResult addRoleResources(@PathVariable String roleId, @RequestBody List<String> resourceIds) {
+        roleResourceService.addRoleResources(roleId, resourceIds);
         return WebUtils.ok(ResponseEnum.ADD_SUCCESS);
     }
 }

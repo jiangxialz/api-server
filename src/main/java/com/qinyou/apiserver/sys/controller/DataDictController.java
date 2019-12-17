@@ -2,7 +2,6 @@ package com.qinyou.apiserver.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qinyou.apiserver.core.base.PageDTO;
 import com.qinyou.apiserver.core.base.PageFindDTO;
 import com.qinyou.apiserver.core.result.ResponseEnum;

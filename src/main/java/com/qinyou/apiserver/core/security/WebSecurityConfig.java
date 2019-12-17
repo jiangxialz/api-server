@@ -86,16 +86,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/account/**").permitAll()
                 .antMatchers("/file/**").permitAll()
                 .antMatchers("/static/**").permitAll()
-
                 // 诊断点
                 .antMatchers("/actuator/**").permitAll()
-
                 // swagger (生产环境不应该生效)
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
-
                 .anyRequest().authenticated()
                 .and()
                 .headers().cacheControl();

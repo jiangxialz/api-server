@@ -84,8 +84,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 账号相关
                 .antMatchers("/account/**").permitAll()
+                // 文件上传
                 .antMatchers("/file/**").permitAll()
+                // 静态资源
                 .antMatchers("/static/**").permitAll()
+                .antMatchers("/assets/**").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/loading/**").permitAll()
+                .antMatchers("/logo.png").permitAll()
+                .antMatchers("/index.html").permitAll()
                 // 诊断点
                 .antMatchers("/actuator/**").permitAll()
                 // swagger (生产环境不应该生效)

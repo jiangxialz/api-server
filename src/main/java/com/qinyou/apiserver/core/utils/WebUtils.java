@@ -12,6 +12,7 @@ import com.qinyou.apiserver.core.base.PageFindDTO;
 import com.qinyou.apiserver.core.result.ResponseEnum;
 import com.qinyou.apiserver.core.result.ResponseResult;
 import com.qinyou.apiserver.core.security.JwtUser;
+import com.qinyou.apiserver.core.security.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -103,8 +104,11 @@ public class WebUtils {
     public static  String getSecurityUsername(){
         String  username = "游客";
         if(SecurityContextHolder.getContext()!=null &&  SecurityContextHolder.getContext().getAuthentication()!=null){
-            JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            username =  jwtUser.getUsername();
+            if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof JwtUser){
+                JwtUser jwtUser = (JwtUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+                username =  jwtUser.getUsername();
+            }
+            // 否则是  anonymousUser
         }
         return username;
     }

@@ -3,6 +3,10 @@ server:
   port: 8888
   servlet:
     context-path: /v1
+  # gzip 压缩
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/plain,text/css,application/x-javascript
 spring:
   # 数据源配置
   datasource:

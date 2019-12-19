@@ -7,6 +7,7 @@ import com.qinyou.apiserver.core.result.ResponseResult;
 import com.qinyou.apiserver.core.utils.WebUtils;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,12 @@ import java.util.Date;
 @Slf4j
 public class FileController {
 
+    @Value("${app.upload.upload-folder}")
+    String uploadFileFolder;  // 存盘路径
+
+    @Value("${app.upload.access-path}")
+    String uploadAccessPath;  // 访问路径
+
     @ApiOperation("文件上传, 表单key为 file")
     @PostMapping("/upload")
     @ResponseBody
@@ -28,8 +35,8 @@ public class FileController {
         try {
             String fileName = System.currentTimeMillis() +"_"+ file.getOriginalFilename();
             String date = DateUtil.format(new Date(),"yyyy_MM_dd");
-            path = "static/upload/" + date + "/" + fileName;
-            String destFileName = req.getServletContext().getRealPath("") + path;
+            path =  date + "/" + fileName;
+            String destFileName = uploadFileFolder + path;
             File destFile = new File(destFileName);
             if(!destFile.getParentFile().exists()){
                if(!destFile.getParentFile().mkdirs()){
@@ -42,6 +49,7 @@ public class FileController {
             log.error(e.getMessage(),e);
             throw RequestException.fail(ResponseEnum.UPLOAD_FAIL);
         }
-        return WebUtils.ok(path) ;
+        // /upload-file/**  变为  upload-file/
+        return WebUtils.ok(uploadAccessPath.replaceAll("\\**","").substring(1)+path) ;
     }
 }

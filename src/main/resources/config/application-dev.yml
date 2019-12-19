@@ -68,3 +68,8 @@ app:
     email-subject: API-SERVER 重置密码验证码
     # 同手机号每天发送短信最大数量
     phone-max-number: 3
+  upload:
+    # web 下访问路径
+    access-path: /upload-file/**
+    # 文件实际路径
+    upload-folder: D://upload/

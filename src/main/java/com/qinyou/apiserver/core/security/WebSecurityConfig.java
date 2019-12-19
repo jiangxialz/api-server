@@ -2,6 +2,7 @@ package com.qinyou.apiserver.core.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -70,6 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+    @Value("${app.upload.access-path}")
+    String uploadAccessPath;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -85,7 +88,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 账号相关
                 .antMatchers("/account/**").permitAll()
                 // 文件上传
-                .antMatchers("/file/**").permitAll()
+                //.antMatchers("/file/upload/**").permitAll()
+                // 文件访问
+                .antMatchers(uploadAccessPath).permitAll()
+                // 诊断点
+                .antMatchers("/actuator/**").permitAll()
                 // 静态资源
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/assets/**").permitAll()
@@ -94,8 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/loading/**").permitAll()
                 .antMatchers("/logo.png").permitAll()
                 .antMatchers("/index.html").permitAll()
-                // 诊断点
-                .antMatchers("/actuator/**").permitAll()
                 // swagger (生产环境不应该生效)
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()

@@ -1,4 +1,5 @@
-<p align="center">`api-server` 前后分离 权限管理 后台脚手架</p>
+## 简介
+ `api-server` 前后分离 权限管理 后台脚手架
 
 ## 运行
 ``` bash
@@ -6,7 +7,7 @@
 2. 将api_server.sql 导入 mysql, 配置application-dev.yml 中数据库连接信息
 3. 运行 ApiServerApplication
 ```
-预览地址 [http://localhost:8888/v1/index.html](http://localhost:8888/v1/index.html)
+预览地址 [http://localhost:8888/v1/index.html](http://localhost:8888/v1/index.html)  
 Swagger Api 地址 [http://localhost:8888/v1/swagger-ui.html](http://localhost:8888/v1/swagger-ui.html)
 
 ## 截图

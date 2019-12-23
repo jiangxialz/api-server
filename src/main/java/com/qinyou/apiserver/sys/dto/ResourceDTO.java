@@ -12,23 +12,23 @@ import javax.validation.constraints.NotNull;
 public class ResourceDTO {
 
     @ApiModelProperty(value = "资源编码",required = true)
-    @NotBlank(message = "资源编码不能为空")
+    @NotBlank(message = "{codeBlank}")
     private String id;
 
     @ApiModelProperty(value = "名称",required = true)
-    @NotBlank(message = "资源名称不能为空")
+    @NotBlank(message = "{nameBlank}")
     private String name;
 
     @ApiModelProperty(value = "状态ON开启OFF禁用",required = true,allowableValues = "ON,OFF")
-    @NotBlank(message = "资源状态不能为空")
+    @NotBlank(message = "{stateBlank}")
     private String state;
 
     @ApiModelProperty(value = "类型，menu菜单，btn按钮",required = true,allowableValues = "menu,btn")
-    @NotBlank(message = "资源类型不能为空")
+    @NotBlank(message = "{typeBlank}")
     private String type;
 
     @ApiModelProperty(value = "排序号",required = true)
-    @NotNull(message = "排序号不能为空")
+    @NotNull(message = "{sortBlank}")
     private Integer sort;
 
     @ApiModelProperty(value = "备注")

@@ -16,14 +16,14 @@ import javax.validation.constraints.NotBlank;
 public class ResetPwdDTO {
 
     @ApiModelProperty(value = "账户(邮箱或电话）",required = true)
-    @NotBlank(message = "账户不能为空")
+    @NotBlank(message = "{resetPwd.account}")
     private String account;
 
     @ApiModelProperty(value = "验证码",required = true)
-    @NotBlank(message = "验证码不能为空")
+    @NotBlank(message = "{resetPwd.code}")
     private String code;
 
     @ApiModelProperty(value = "新密码",required = true)
-    @NotBlank(message = "新密码不能为空")
+    @NotBlank(message = "{newPwdBlank}")
     private String password;
 }

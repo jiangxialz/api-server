@@ -16,10 +16,10 @@ import javax.validation.constraints.NotBlank;
 public class ChangePwdDTO {
 
     @ApiModelProperty(value = "原始密码",required = true)
-    @NotBlank(message = "原始密码不可为空")
+    @NotBlank(message = "{changePwd.oldPwdBlank}")
     private String oldPwd;
 
     @ApiModelProperty(value = "新密码",required = true)
-    @NotBlank(message = "新密码不可为空")
+    @NotBlank(message = "{newPwdBlank}")
     private String newPwd;
 }

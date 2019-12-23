@@ -48,14 +48,14 @@ public class ExceptionAdvice {
     @ResponseBody
     public ResponseResult methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         BindingResult result = e.getBindingResult();
-        String s = ResponseEnum.BAD_PARAM.msg;
+        String s = ResponseEnum.BAD_PARAM.getMsg();
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
             s = errors.get(0).getDefaultMessage();
         }
         return ResponseResult.builder()
                 .status(false)
-                .code(ResponseEnum.BAD_PARAM.code)
+                .code(ResponseEnum.BAD_PARAM.getCode())
                 .msg(s)
                 .build();
     }

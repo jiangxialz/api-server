@@ -12,8 +12,8 @@ import com.qinyou.apiserver.core.base.PageFindDTO;
 import com.qinyou.apiserver.core.result.ResponseEnum;
 import com.qinyou.apiserver.core.result.ResponseResult;
 import com.qinyou.apiserver.core.security.JwtUser;
-import com.qinyou.apiserver.core.security.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -207,23 +207,24 @@ public class WebUtils {
     public static <T> ResponseResult<T> ok(ResponseEnum responseEnum, T data){
         return ResponseResult.<T>builder()
                 .status(true)
-                .code(responseEnum.code)
-                .msg(responseEnum.msg)
+                .code(responseEnum.getCode())
+                .msg(responseEnum.getMsg())
                 .data(data)
                 .build();
     }
     public static <T> ResponseResult<T> ok(ResponseEnum responseEnum){
+        System.err.println("LocaleContextHolder.getLocale():"+LocaleContextHolder.getLocale());
         return ResponseResult.<T>builder()
                 .status(true)
-                .code(responseEnum.code)
-                .msg(responseEnum.msg)
+                .code(responseEnum.getCode())
+                .msg(responseEnum.getMsg())
                 .build();
     }
 
     public static <T> ResponseResult<T> ok(ResponseEnum responseEnum, String msg){
         return ResponseResult.<T>builder()
                 .status(true)
-                .code(responseEnum.code)
+                .code(responseEnum.getCode())
                 .msg(msg)
                 .build();
     }
@@ -238,8 +239,8 @@ public class WebUtils {
     public static <T> ResponseResult<T> fail(ResponseEnum responseEnum, T data){
         return ResponseResult.<T>builder()
                 .status(false)
-                .code(responseEnum.code)
-                .msg(responseEnum.msg)
+                .code(responseEnum.getCode())
+                .msg(responseEnum.getMsg())
                 .data(data)
                 .build();
     }
@@ -247,8 +248,8 @@ public class WebUtils {
     public static <T> ResponseResult fail(ResponseEnum responseEnum){
         return ResponseResult.builder()
                 .status(false)
-                .code(responseEnum.code)
-                .msg(responseEnum.msg)
+                .code(responseEnum.getCode())
+                .msg(responseEnum.getMsg())
                 .build();
     }
 

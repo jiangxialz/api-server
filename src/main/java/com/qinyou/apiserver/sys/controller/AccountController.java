@@ -1,5 +1,6 @@
 package com.qinyou.apiserver.sys.controller;
 
+import cn.hutool.core.lang.PatternPool;
 import cn.hutool.core.lang.Validator;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -66,7 +67,7 @@ public class AccountController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", value = "身份认证Token")
     @SysLog(type = "0")
     @PostMapping("/update-user-info")
-    public ResponseResult<UserInfoDTO> updateUserInfo(@JwtClaim String username, @RequestBody ChangeInfoDTO changeInfoDTO) {
+    public ResponseResult<UserInfoDTO> updateUserInfo(@JwtClaim String username, @RequestBody @Validated  ChangeInfoDTO changeInfoDTO) {
         accountService.updateUserInfo(username, changeInfoDTO);
         return WebUtils.ok(ResponseEnum.UPDATE_USERINFO_SUCCESS);
     }

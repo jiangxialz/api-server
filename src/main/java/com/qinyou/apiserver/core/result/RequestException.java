@@ -19,25 +19,25 @@ public class RequestException extends RuntimeException implements Serializable {
     private Exception e;
 
     public RequestException(ResponseEnum statusEnum, Exception e) {
-        this.code = statusEnum.code;
-        this.msg = statusEnum.msg;
+        this.code = statusEnum.getCode();
+        this.msg = statusEnum.getMsg();
         this.e = e;
     }
 
     public RequestException(ResponseEnum statusEnum) {
-        this.code = statusEnum.code;
-        this.msg = statusEnum.msg;
+        this.code = statusEnum.getCode();
+        this.msg = statusEnum.getMsg();
     }
 
     public static RequestException fail(ResponseEnum responseEnum) {
         return RequestException.builder()
-                .code(responseEnum.code).msg(responseEnum.msg)
+                .code(responseEnum.getCode()).msg(responseEnum.getMsg())
                 .build();
     }
 
     public static RequestException fail(ResponseEnum responseEnum, Exception e) {
         return RequestException.builder()
-                .code(responseEnum.code).msg(responseEnum.msg)
+                .code(responseEnum.getCode()).msg(responseEnum.getMsg())
                 .e(e).build();
     }
 }

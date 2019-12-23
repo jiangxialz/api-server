@@ -37,6 +37,7 @@ public class UserInfoDTO {
 
     @ApiModelProperty(value = "角色集合")
     private Set<String> roles;
+
     @ApiModelProperty(value = "资源集合")
     private Set<String> resources;
 }

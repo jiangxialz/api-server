@@ -1,5 +1,7 @@
 package com.qinyou.apiserver.sys.dto;
 
+import com.qinyou.apiserver.core.validator.Email;
+import com.qinyou.apiserver.core.validator.Phone;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,17 +16,19 @@ public class ChangeInfoDTO {
     private String nickname;
 
     @ApiModelProperty(value = "手机")
-    @NotBlank(message = "手机不能为空")
+    @NotBlank(message = "{phoneBlank}")
+    @Phone(message = "{phonePattern}")
     private String phone;
 
     @ApiModelProperty(value = "邮箱")
-    @NotBlank(message = "邮箱不能为空")
+    @NotBlank(message = "{emailBlank}")
+    @Email(message = "{emailPattern}")
     private String email;
 
     @ApiModelProperty(value = "介绍信息")
     private String intro;
 
     @ApiModelProperty(value = "头像")
-    @NotBlank(message = "头像不能为空")
+    @NotBlank(message = "{avatarBlank}")
     private String avatar;
 }

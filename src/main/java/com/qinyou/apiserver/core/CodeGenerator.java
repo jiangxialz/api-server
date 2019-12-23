@@ -43,13 +43,12 @@ public class CodeGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("chuang");
         gc.setOpen(false);
-        gc.setSwagger2(true); // 实体属性 Swagger2 注解
+        gc.setSwagger2(true); // 实体添加 swagger 注解
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://localhost:3306/api_server?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC");
-        // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("123456");
@@ -61,16 +60,14 @@ public class CodeGenerator {
         pc.setParent("com.qinyou.apiserver");
         mpg.setPackageInfo(pc);
 
-
-        // 自定义输出配置
-        // 自定义配置会被优先输出
+        // 自定义生成 mapper.xml 配置文件位置
         List<FileOutConfig> focList = new ArrayList<>();
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
             }
         };
-        String templatePath = "/templates/mapper.xml.ftl";     // freemarker 模板引擎
+        String templatePath = "/templates/mapper.xml.ftl";
         focList.add(new FileOutConfig(templatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
@@ -82,11 +79,6 @@ public class CodeGenerator {
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
-        // 配置自定义输出模板
-        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
 
@@ -97,11 +89,8 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);
         strategy.setEntityTableFieldAnnotationEnable(true);
         strategy.setRestControllerStyle(true);
-        // entity 基类
-        strategy.setSuperEntityColumns("creater","create_time","updater","update_time");
         strategy.setSuperEntityClass(BaseEntity.class);
-        // controller 基类
-        //strategy.setSuperControllerClass("com.baomidou.ant.base.BaseController");
+        strategy.setSuperEntityColumns("creater","create_time","updater","update_time");  // entity 基类
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");

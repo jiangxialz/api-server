@@ -1,9 +1,9 @@
 package com.qinyou.apiserver.sys.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qinyou.apiserver.sys.entity.Log;
 import com.qinyou.apiserver.sys.mapper.LogMapper;
 import com.qinyou.apiserver.sys.service.ILogService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

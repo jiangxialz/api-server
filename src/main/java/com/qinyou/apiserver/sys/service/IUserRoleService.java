@@ -1,7 +1,5 @@
 package com.qinyou.apiserver.sys.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qinyou.apiserver.core.base.PageDTO;
 import com.qinyou.apiserver.core.base.PageFindDTO;

@@ -1,9 +1,9 @@
 package com.qinyou.apiserver.sys.service;
 
+import com.qinyou.apiserver.sys.dto.ChangeInfoDTO;
 import com.qinyou.apiserver.sys.dto.ChangePwdDTO;
 import com.qinyou.apiserver.sys.dto.ResetPwdDTO;
 import com.qinyou.apiserver.sys.dto.UserInfoDTO;
-import com.qinyou.apiserver.sys.dto.ChangeInfoDTO;
 
 
 public interface IAccountService {

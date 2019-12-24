@@ -13,7 +13,6 @@ import com.qinyou.apiserver.core.result.ResponseEnum;
 import com.qinyou.apiserver.core.result.ResponseResult;
 import com.qinyou.apiserver.core.security.JwtUser;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -203,7 +202,32 @@ public class WebUtils {
         return new PageDTO<>(page.getCurrent(),page.getSize(),page.getTotal(),page.getPages(),page.getRecords());
     }
 
+    // 成功消息响应
+    public static <T> ResponseResult<T> ok(ResponseEnum responseEnum){
+        return ResponseResult.<T>builder()
+                .status(true)
+                .code(responseEnum.getCode())
+                .msg(responseEnum.getMsg())
+                .build();
+    }
 
+    // 成功 消息响应，带消息参数
+    public static <T> ResponseResult<T> ok(ResponseEnum responseEnum,Object[] args){
+        return ResponseResult.<T>builder()
+                .status(true)
+                .code(responseEnum.getCode())
+                .msg(responseEnum.getMsg(args))
+                .build();
+    }
+    // 成功 数据响应
+    public static  <T>  ResponseResult<T> ok(T data){
+        return ResponseResult.<T>builder()
+                .status(true)
+                .data(data)
+                .build();
+    }
+
+    // 成功 消息数据 响应
     public static <T> ResponseResult<T> ok(ResponseEnum responseEnum, T data){
         return ResponseResult.<T>builder()
                 .status(true)
@@ -212,44 +236,30 @@ public class WebUtils {
                 .data(data)
                 .build();
     }
-    public static <T> ResponseResult<T> ok(ResponseEnum responseEnum){
-        System.err.println("LocaleContextHolder.getLocale():"+LocaleContextHolder.getLocale());
-        return ResponseResult.<T>builder()
-                .status(true)
+
+    // 失败 消息 响应
+    public static <T> ResponseResult fail(ResponseEnum responseEnum){
+        return ResponseResult.builder()
+                .status(false)
                 .code(responseEnum.getCode())
                 .msg(responseEnum.getMsg())
                 .build();
     }
-
-    public static <T> ResponseResult<T> ok(ResponseEnum responseEnum, String msg){
-        return ResponseResult.<T>builder()
-                .status(true)
+    // 失败消息响应，消息带参数
+    public static <T> ResponseResult fail(ResponseEnum responseEnum, Object[] args){
+        return ResponseResult.builder()
+                .status(false)
                 .code(responseEnum.getCode())
-                .msg(msg)
+                .msg(responseEnum.getMsg(args))
                 .build();
     }
-
-    public static  <T>  ResponseResult<T> ok(T data){
-        return ResponseResult.<T>builder()
-                .status(true)
-                .data(data)
-                .build();
-    }
-
+    // 失败 消息数据响应
     public static <T> ResponseResult<T> fail(ResponseEnum responseEnum, T data){
         return ResponseResult.<T>builder()
                 .status(false)
                 .code(responseEnum.getCode())
                 .msg(responseEnum.getMsg())
                 .data(data)
-                .build();
-    }
-
-    public static <T> ResponseResult fail(ResponseEnum responseEnum){
-        return ResponseResult.builder()
-                .status(false)
-                .code(responseEnum.getCode())
-                .msg(responseEnum.getMsg())
                 .build();
     }
 

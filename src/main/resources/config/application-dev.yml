@@ -27,9 +27,6 @@ spring:
     username: synear_vip@163.com
     password: zgl0513
     default-encoding: UTF-8
-  messages:
-    encoding: UTF-8
-    basename: i18n/message
 # mybatis-plus 配置
 mybatis-plus:
   configuration:

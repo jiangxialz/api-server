@@ -97,7 +97,7 @@ public class UserController {
     @GetMapping("/reset-pwd/{id}")
     public ResponseResult resetPassword(@PathVariable String id) {
         userService.resetPwd(id);
-        return WebUtils.ok(ResponseEnum.RESET_PWD_SUCCESS, ResponseEnum.RESET_PWD_SUCCESS.getMsg() + userDefaultPwd);
+        return WebUtils.ok(ResponseEnum.RESET_PWD_SUCCESS, new Object[]{userDefaultPwd});
     }
 
 

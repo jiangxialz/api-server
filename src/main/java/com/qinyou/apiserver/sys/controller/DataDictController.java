@@ -1,5 +1,6 @@
 package com.qinyou.apiserver.sys.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.qinyou.apiserver.core.base.PageDTO;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -36,29 +37,61 @@ public class DataDictController {
     @Autowired
     IDataDictService dataDictService;
 
-    @ApiOperation("数组字典列表")
-    @PreAuthorize("hasAuthority('sysDataDict')")
-    @GetMapping(value = "/list")
+    @ApiOperation("数组字典列表,不翻页，树形结构数据")
+    @PreAuthorize("hasAuthority('sysDict')")
+    @PostMapping(value = "/list")
     public ResponseResult<PageDTO<DataDict>> list(@RequestBody PageFindDTO pageFindDto) {
-        // 查询参数
-        QueryWrapper<DataDict> queryWrapper = WebUtils.buildSearchQueryWrapper(pageFindDto);
-        queryWrapper.eq("type", "group");
-        IPage<DataDict> pageQuery = WebUtils.buildSearchPage(pageFindDto);
-        // 查询数据
-        IPage<DataDict> pageData = dataDictService.page(pageQuery, queryWrapper);
-        for (DataDict dataDict : pageData.getRecords()) {
-            List<DataDict> children = dataDictService.list(
-                    new QueryWrapper<DataDict>().eq("group_code", dataDict.getCode())
-            );
-            if (children.size() > 0) dataDict.setChildren(children);
+        QueryWrapper<DataDict> queryWrapper = new QueryWrapper<>();
+        String type = pageFindDto.getFilter().get("type");
+        String key = pageFindDto.getFilter().get("key");
+
+        if(StrUtil.isNotBlank(key)){
+            // 有查询条件
+            if("LIKE".equals(type)){
+                // 名称或编码 模糊匹配
+                queryWrapper.like("name",key).or().like("code",key);
+            }else if("EQ".equals(type)){
+                // 编码精确查找
+                queryWrapper.eq("code",key);
+            }
+        }else{
+            // 无查询条件
+            queryWrapper.eq("pid","0");
         }
-        // 数据结果包装
-        return WebUtils.ok(WebUtils.buildResultPage(pageData));
+        queryWrapper.orderByAsc("sort");
+
+        IPage<DataDict> page = WebUtils.buildSearchPage(pageFindDto);
+        PageDTO<DataDict> pageDTO = WebUtils.buildResultPage(dataDictService.page(page, queryWrapper));
+
+        // 没有查询条件 或 编码精确匹配 查询层级结构
+        if(StrUtil.isBlank(key) || "EQ".equals(type)){
+            for(DataDict dataDict:pageDTO.getRecords()){
+                dataDictService.findList(dataDict);
+            }
+        }
+
+        return WebUtils.ok(pageDTO);
     }
 
+    @ApiOperation("treeSelect 组件数据")
+    @PreAuthorize("hasAuthority('sysDict')")
+    @GetMapping(value = {"/list-tree-select/{currentKey}","/list-tree-select"})
+    public ResponseResult<Map<String,Object>> listTreeSelect(@PathVariable(required = false) String currentKey ){
+        Map<String,Object> root = new HashMap<>();
+        root.put("key","0");
+        root.put("label","根节点");
+        root.put("value","0");
+        Set<String> childrenKey = new HashSet<>();
+        if(StrUtil.isNotBlank(currentKey)){
+            dataDictService.findChildrenIds(currentKey,childrenKey);
+            childrenKey.add(currentKey);
+        }
+        dataDictService.findPForTreeSelect(root,childrenKey);
+        return WebUtils.ok(root);
+    }
 
     @ApiOperation("添加字典")
-    @PreAuthorize("hasAuthority('sysDataDict:add')")
+    @PreAuthorize("hasAuthority('sysDict:add')")
     @PostMapping("/add")
     public ResponseResult add(@RequestBody @Validated DataDictDTO dataDictDTO) {
         dataDictService.add(dataDictDTO);
@@ -66,7 +99,7 @@ public class DataDictController {
     }
 
     @ApiOperation("修改字典")
-    @PreAuthorize("hasAuthority('sysDataDict:update')")
+    @PreAuthorize("hasAuthority('sysDict:update')")
     @PostMapping("/update/{id}")
     public ResponseResult update(@PathVariable("id") String id, @RequestBody @Validated DataDictDTO dataDictDTO) {
         dataDictService.update(id, dataDictDTO);
@@ -75,7 +108,7 @@ public class DataDictController {
 
 
     @ApiOperation("删除字典")
-    @PreAuthorize("hasAuthority('sysDataDict:remove')")
+    @PreAuthorize("hasAuthority('sysDict:remove')")
     @GetMapping("/remove/{id}")
     public ResponseResult delete(@PathVariable String id) {
         dataDictService.remove(id);
@@ -83,7 +116,7 @@ public class DataDictController {
     }
 
     @ApiOperation("切换状态，如果为ON变更为OFF，如果为OFF变更为ON")
-    @PreAuthorize("hasAuthority('sysDataDict:toggleState')")
+    @PreAuthorize("hasAuthority('sysDict:toggle')")
     @GetMapping("/toggle-state/{id}")
     @Transactional
     public ResponseResult toggleState(@PathVariable String id) {

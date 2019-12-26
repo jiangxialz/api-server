@@ -1,5 +1,6 @@
 package com.qinyou.apiserver.core.base;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -19,18 +20,18 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("create_time")
+    @TableField(value = "create_time",select = false)
     public LocalDateTime createTime;
 
     @ApiModelProperty(value = "创建人")
-    @TableField("creater")
+    @TableField(value ="creater",select = false)
     public String creater;
 
     @ApiModelProperty(value = "最后修改时间")
-    @TableField("update_time")
+    @TableField(value ="update_time",select = false)
     public LocalDateTime updateTime;
 
     @ApiModelProperty(value = "最后修改人")
-    @TableField("updater")
+    @TableField(value ="updater",select = false)
     public String updater;
 }

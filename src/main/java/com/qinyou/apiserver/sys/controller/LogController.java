@@ -38,7 +38,7 @@ public class LogController {
     @Autowired
     ILogService logService;
 
-    @ApiOperation("查询列表,带分页")
+    @ApiOperation(value = "查询列表,带分页")
     @PreAuthorize("hasAuthority('sysLog')")
     @PostMapping("/list")
     public ResponseResult<PageDTO<Log>> list(@RequestBody PageFindDTO pageFindDto) {

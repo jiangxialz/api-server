@@ -2,6 +2,7 @@ package com.qinyou.apiserver.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qinyou.apiserver.sys.entity.Log;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -12,5 +13,4 @@ import com.qinyou.apiserver.sys.entity.Log;
  * @since 2019-12-15
  */
 public interface LogMapper extends BaseMapper<Log> {
-
 }

@@ -28,16 +28,11 @@ import java.util.List;
 @TableName("sys_data_dict")
 @ApiModel(value="DataDict对象", description="数据字典")
 public class DataDict extends BaseEntity implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
     @TableId(value = "id",type = IdType.ID_WORKER_STR)
     private String id;
-
-    @ApiModelProperty(value = "类型")
-    @TableField("type")
-    private String type;
 
     @ApiModelProperty(value = "名称")
     @TableField("name")
@@ -51,9 +46,14 @@ public class DataDict extends BaseEntity implements Serializable {
     @TableField("state")
     private String state;
 
-    @ApiModelProperty(value = "组编码")
-    @TableField("group_code")
-    private String groupCode;
+    @ApiModelProperty(value = "父级id")
+    @TableField("pid")
+    private String pid;
+
+    @ApiModelProperty(value = "排序号")
+    @TableField("sort")
+    private Integer sort;
+
 
     // 非数据表字段
     @ApiModelProperty( hidden = true) // 不加 swagger 无法使用

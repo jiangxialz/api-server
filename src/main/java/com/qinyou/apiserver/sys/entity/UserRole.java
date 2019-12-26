@@ -40,11 +40,11 @@ public class UserRole {
     private String roleId;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("create_time")
+    @TableField(value = "create_time",select = false)
     public LocalDateTime createTime;
 
     @ApiModelProperty(value = "创建人")
-    @TableField("creater")
+    @TableField(value = "creater",select = false)
     public String creater;
 
 

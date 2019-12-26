@@ -83,7 +83,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         this.update(
                 new UpdateWrapper<User>().set("state",state)
                         .set("updater", WebUtils.getSecurityUsername())
-                        .set("update_time",LocalDateTime.now()).eq("id",id)
+                        .set("update_time",LocalDateTime.now())
+                        .eq("id",id)
         );
     }
 

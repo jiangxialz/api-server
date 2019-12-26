@@ -23,7 +23,6 @@ public class LocaleConfig {
     // 自定义 messageResource
     @Bean
     public MessageSource messageSource() {
-        log.info("--------------------初始化-----------------messageSource ");
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames("classpath:i18n/validate","classpath:i18n/message");
         messageSource.setDefaultEncoding("UTF-8");

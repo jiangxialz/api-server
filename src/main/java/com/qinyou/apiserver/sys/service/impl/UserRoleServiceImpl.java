@@ -58,7 +58,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
     public PageDTO<Role> listRoles(boolean flag, String userId, PageFindDTO pageFindDTO){
         // 查询参数
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        String key = pageFindDTO.getFilter()!=null ? pageFindDTO.getFilter().get("key"):null;
+        String key = pageFindDTO.getFilter()!=null ?  pageFindDTO.getFilter().get("key"):null;
         if(StrUtil.isNotBlank(key)){
              if(flag){
                  queryWrapper.like("a.name",key).or().like("a.id",key);

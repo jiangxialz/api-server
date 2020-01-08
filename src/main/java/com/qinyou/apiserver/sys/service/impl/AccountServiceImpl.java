@@ -2,6 +2,7 @@ package com.qinyou.apiserver.sys.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.qinyou.apiserver.core.result.RequestException;
@@ -112,6 +113,14 @@ public class AccountServiceImpl implements IAccountService {
         if(user==null){
             throw RequestException.fail(ResponseEnum.UPDATE_USERINFO_FAIL);
         }
+        // 验证手机号邮箱是否存在
+        if(StrUtil.isNotBlank(changeInfoDTO.getPhone()) && userService.checkExist(username,changeInfoDTO.getPhone(),null)){
+            throw RequestException.fail(ResponseEnum.PHONE_EXIST);
+        }
+        if(StrUtil.isNotBlank(changeInfoDTO.getEmail()) && userService.checkExist(username,null,changeInfoDTO.getEmail())){
+            throw RequestException.fail(ResponseEnum.EMAIL_EXIST);
+        }
+
         BeanUtils.copyProperties(changeInfoDTO,user);
         user.setUpdateTime(LocalDateTime.now()).setUpdater(WebUtils.getSecurityUsername());
         userService.updateById(user);

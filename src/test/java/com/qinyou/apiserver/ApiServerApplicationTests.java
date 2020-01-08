@@ -1,8 +1,10 @@
 package com.qinyou.apiserver;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.qinyou.apiserver.core.utils.DateUtils;
 import com.qinyou.apiserver.sys.entity.*;
 import com.qinyou.apiserver.sys.service.*;
+import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -10,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 @Slf4j
@@ -88,6 +93,23 @@ class ApiServerApplicationTests {
                         .setCreater("chuang").setCreateTime(LocalDateTime.now());
                 roleResourceService.save(roleResource);
             }
+        }
+    }
+
+    @Autowired
+    IMsgService msgService;
+
+    @Test
+    public void createMsg() throws IOException, TemplateException {
+        // ${username}  于  ${datetime} 下单，消费金额 ￥${money}.   单号 ${orderNo}
+        String typeCode = "ORDER_NEW";
+        for(int i=0; i<100; i++ ){
+            Map<String,Object> params = new HashMap<>();
+            params.put("username","性感哥"+i);
+            params.put("datetime", DateUtils.formatDateTime(LocalDateTime.now().plusDays(i)));
+            params.put("money",i*100);
+            params.put("orderNo","NO."+i+Math.random()*1000000);
+            msgService.triggerMsg(typeCode,params);
         }
     }
 }

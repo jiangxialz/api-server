@@ -41,7 +41,13 @@ public enum ResponseEnum {
     PHONE_NOT_FOUND(2017,"手机账号不存在"),
     UPLOAD_FAIL(2018,"文件上传失败"),
     UPDATE_USERINFO_FAIL(2019,"更新用户信息失败"),
-    CHANGE_PWD_FAIL(2020,"修改密码失败");
+    CHANGE_PWD_FAIL(2020,"修改密码失败"),
+    PHONE_EXIST(2021,"手机号已存在"),
+    EMAIL_EXIST(2022,"邮箱账号已存在"),
+    USERNAME_NOT_FOUND(2023,"用户名 {0} 不存在"),
+    ROLE_NOT_FOUND(2024,"角色 {0} 不存在"),
+    DATA_NOT_FOUND(2025,"数据查询不到");
+
 
     private Integer code;       // 编码
     private String defaultMsg;  // 默认消息，当message_xx.properties 中没有时使用

@@ -6,7 +6,8 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * 自定义校验器
+ * 邮箱检验
+ * 如果为null 或 符合邮箱格式 能正常校验通过
  */
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)

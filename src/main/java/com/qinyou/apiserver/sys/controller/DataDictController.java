@@ -42,8 +42,8 @@ public class DataDictController {
     @PostMapping(value = "/list")
     public ResponseResult<PageDTO<DataDict>> list(@RequestBody PageFindDTO pageFindDto) {
         QueryWrapper<DataDict> queryWrapper = new QueryWrapper<>();
-        String type = pageFindDto.getFilter().get("type");
-        String key = pageFindDto.getFilter().get("key");
+        String type = (String) pageFindDto.getFilter().get("type");
+        String key = (String) pageFindDto.getFilter().get("key");
 
         if(StrUtil.isNotBlank(key)){
             // 有查询条件

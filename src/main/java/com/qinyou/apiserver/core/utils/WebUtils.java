@@ -12,6 +12,9 @@ import com.qinyou.apiserver.core.base.PageFindDTO;
 import com.qinyou.apiserver.core.result.ResponseEnum;
 import com.qinyou.apiserver.core.result.ResponseResult;
 import com.qinyou.apiserver.core.security.JwtUser;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -19,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,6 +73,25 @@ public class WebUtils {
         } catch (IOException e) {
             log.error(e.getMessage(),e);
         }
+    }
+
+    /**
+     * 通过 freemarker 字符串渲染文本
+     * @param template
+     * @param model
+     * @return
+     * @throws IOException
+     * @throws TemplateException
+     */
+    public static String processTpl(String template, Map<String, ?> model) throws IOException, TemplateException {
+        if (template == null) {
+            return null;
+        }
+        StringWriter out = new StringWriter();
+        new Template("template", new StringReader(template),
+                new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS))
+                .process(model, out);
+        return out.toString();
     }
 
     /**
@@ -169,9 +193,6 @@ public class WebUtils {
                         break;
                     case "LTE":
                         queryWrapper.le(filterField,entry.getValue());
-                        break;
-                    case "IN":
-                        queryWrapper.in(filterField,entry.getValue().split(","));
                         break;
                 }
             }

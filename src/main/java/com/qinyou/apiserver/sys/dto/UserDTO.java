@@ -24,12 +24,10 @@ public class UserDTO {
     private String nickname;
 
     @ApiModelProperty(value = "手机")
-    @NotBlank(message = "{phoneBlank}")
     @Phone(message = "{phonePattern}")
     private String phone;
 
     @ApiModelProperty(value = "邮箱")
-    @NotBlank(message = "{emailBlank}")
     @Email(message = "{emailPattern}")
     private String email;
 
@@ -37,6 +35,5 @@ public class UserDTO {
     private String intro;
 
     @ApiModelProperty(value = "头像")
-    @NotBlank(message = "{avatarBlank}")
     private String avatar;
 }

@@ -35,6 +35,12 @@ public class RequestException extends RuntimeException implements Serializable {
                 .build();
     }
 
+    public static RequestException fail(ResponseEnum responseEnum, Object[] msgArgs) {
+        return RequestException.builder()
+                .code(responseEnum.getCode()).msg(responseEnum.getMsg(msgArgs))
+                .build();
+    }
+
     public static RequestException fail(ResponseEnum responseEnum, Exception e) {
         return RequestException.builder()
                 .code(responseEnum.getCode()).msg(responseEnum.getMsg())

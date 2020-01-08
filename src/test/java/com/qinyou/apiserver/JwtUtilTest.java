@@ -2,6 +2,7 @@ package com.qinyou.apiserver;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.PatternPool;
+import cn.hutool.core.lang.Validator;
 import com.qinyou.apiserver.core.result.ResponseEnum;
 import com.qinyou.apiserver.core.security.JwtUtil;
 import com.qinyou.apiserver.core.utils.DateUtils;
@@ -38,7 +39,8 @@ public class JwtUtilTest {
 
     @Test
     public void test3(){
-
+        String mobile  = "";
+        System.out.println(Validator.isMobile(mobile));
     }
 
 }

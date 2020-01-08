@@ -19,4 +19,13 @@ public class DateUtils {
         log.debug("date: {}",date);
         return date;
     }
+
+    /**
+     * 字符串转日期
+     * @param str
+     * @return
+     */
+    public static LocalDateTime parseLocalDateTime(String str){
+        return  LocalDateTime.parse(str,DEFAULT_FORMATTER);
+    }
 }

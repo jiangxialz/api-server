@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * <p>
@@ -36,6 +37,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     IUserRoleService userRoleService;
     @Autowired
     IRoleResourceService roleResourceService;
+    @Autowired
+    RoleMapper roleMapper ;
 
     @Override
     public void add(RoleDTO roleDTO) {
@@ -82,5 +85,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
                 .set("update_time",LocalDateTime.now())
                 .eq("id",id);
         this.update(wraper);
+    }
+
+    @Override
+    public Set<String> findUsersByRole(String roleId) {
+        return roleMapper.getRoleUsers(roleId);
     }
 }

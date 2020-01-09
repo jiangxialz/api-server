@@ -30,6 +30,9 @@ public class MsgDTO {
     @ApiModelProperty(value = "消息标题")
     private String title;
 
+    @ApiModelProperty(value = "消息内容")
+    private String content;
+
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 

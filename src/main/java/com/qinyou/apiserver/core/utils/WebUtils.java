@@ -224,6 +224,15 @@ public class WebUtils {
     }
 
     // 成功消息响应
+    public static <T> ResponseResult<T> ok(){
+        return ResponseResult.<T>builder()
+                .status(true)
+                .code(ResponseEnum.SUCCESS.getCode())
+                .msg(ResponseEnum.SUCCESS.getMsg())
+                .build();
+    }
+
+    // 成功消息响应
     public static <T> ResponseResult<T> ok(ResponseEnum responseEnum){
         return ResponseResult.<T>builder()
                 .status(true)

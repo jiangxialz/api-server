@@ -34,10 +34,6 @@ public class Msg  {
     @TableField("type_code")
     private String typeCode;
 
-    @ApiModelProperty(value = "消息标题")
-    @TableField("title")
-    private String title;
-
     @ApiModelProperty(value = "消息内容")
     @TableField("content")
     private String content;

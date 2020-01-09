@@ -1,10 +1,10 @@
 package com.qinyou.apiserver.sys.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.qinyou.apiserver.sys.dto.MsgDTO;
 import com.qinyou.apiserver.sys.entity.Msg;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -25,7 +25,7 @@ public interface MsgMapper extends BaseMapper<Msg> {
      * @param queryWrapper
      * @return
      */
-    @Select(" SELECT a.id, b.title, b.create_time as createTime, d.logo, a.read_time as readTime " +
+    @Select(" SELECT a.id, d.name as title, b.content, b.create_time as createTime, d.logo, a.read_time as readTime " +
             " FROM sys_msg_detail a " +
             " LEFT JOIN sys_msg b on a.msg_id = b.id " +
             " LEFT JOIN sys_msg_type d on b.type_code = d.id " +

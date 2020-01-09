@@ -1,7 +1,7 @@
 package com.qinyou.apiserver.sys.mapper;
 
-import com.qinyou.apiserver.sys.entity.MsgDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.qinyou.apiserver.sys.entity.MsgDetail;
 
 /**
  * <p>

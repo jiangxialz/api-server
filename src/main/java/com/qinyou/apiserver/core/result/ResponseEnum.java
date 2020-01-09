@@ -11,15 +11,17 @@ import org.springframework.context.i18n.LocaleContextHolder;
 @Slf4j
 public enum ResponseEnum {
     // 常用操作
-    LOGIN_SUCCESS(1000,"登录成功"),
-    ADD_SUCCESS(1001,"添加成功"),
-    UPDATE_SUCCESS(1002,"修改成功"),
-    DELETE_SUCCESS(1003,"删除成功"),
-    TOGGLE_SUCCESS(1004,"切换成功"),
-    RESET_PWD_SUCCESS(1005,"重置密码成功, 新密码: "),
-    SEND_CODE_SUCCESS(1006,"发送验证码成功"),
-    UPDATE_USERINFO_SUCCESS(1007,"更新用户信息成功"),
-    CHANGE_PWD_SUCCESS(1008,"修改密码成功"),
+    SUCCESS(1000,"操作成功"),
+    LOGIN_SUCCESS(1001,"登录成功"),
+    ADD_SUCCESS(1002,"添加成功"),
+    UPDATE_SUCCESS(1003,"修改成功"),
+    DELETE_SUCCESS(1004,"删除成功"),
+    TOGGLE_SUCCESS(1005,"切换成功"),
+    RESET_PWD_SUCCESS(1006,"重置密码成功, 新密码: "), // 管理员 重置其它用户
+    RESET_PWD_SUCCESS2(1006,"重置密码成功"), // 通过 验证码重置密码
+    SEND_CODE_SUCCESS(1007,"发送验证码成功"),
+    UPDATE_USERINFO_SUCCESS(1008,"更新用户信息成功"),
+    CHANGE_PWD_SUCCESS(1009,"修改密码成功"),
 
     EXCEPTION_MSG(2000,"服务器飘了，管理员去拿刀修理了~"),
     BAD_SQL(2001,"Sql 执行异常"),

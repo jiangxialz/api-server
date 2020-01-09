@@ -1,9 +1,8 @@
 package com.qinyou.apiserver.sys.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.google.common.base.Joiner;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qinyou.apiserver.core.result.RequestException;
 import com.qinyou.apiserver.core.result.ResponseEnum;
 import com.qinyou.apiserver.core.utils.WebUtils;
@@ -11,7 +10,6 @@ import com.qinyou.apiserver.sys.dto.MsgTypeDTO;
 import com.qinyou.apiserver.sys.entity.MsgType;
 import com.qinyou.apiserver.sys.mapper.MsgTypeMapper;
 import com.qinyou.apiserver.sys.service.IMsgTypeService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qinyou.apiserver.sys.service.IRoleService;
 import com.qinyou.apiserver.sys.service.IUserService;
 import org.springframework.beans.BeanUtils;
@@ -19,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

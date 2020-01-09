@@ -1,7 +1,7 @@
 package com.qinyou.apiserver.sys.service;
 
-import com.qinyou.apiserver.sys.entity.MsgDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qinyou.apiserver.sys.entity.MsgDetail;
 
 /**
  * <p>

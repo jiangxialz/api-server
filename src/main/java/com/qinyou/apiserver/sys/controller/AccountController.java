@@ -99,7 +99,7 @@ public class AccountController {
     @PostMapping(value = "/reset-password")
     public ResponseResult resetPwd(@RequestBody @Validated ResetPwdDTO resetPwdDTO) {
         accountService.resetPwd(resetPwdDTO);
-        return WebUtils.ok(ResponseEnum.RESET_PWD_SUCCESS);
+        return WebUtils.ok(ResponseEnum.RESET_PWD_SUCCESS2);
     }
 
 

@@ -79,7 +79,7 @@ public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgS
         String content = WebUtils.processTpl(msgType.getTemplate(),params);
 
         // 保存主表
-        Msg msg  = new Msg().setTitle(msgType.getName()).setContent(content)
+        Msg msg  = new Msg().setContent(content)
                 .setTypeCode(msgType.getId())
                 .setCreateTime(LocalDateTime.now())
                 .setDeadTime(LocalDateTime.now().plusDays(msgType.getDead()))
